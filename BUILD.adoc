@@ -1,0 +1,158 @@
+= Caelum: Build Guide
+:toc: macro
+:toclevels: 2
+:sectnums:
+:source-highlighter: rouge
+
+How to build Caelum, boot it in QEMU, and test it. Caelum is an x86_64 kernel written in C and NASM assembly, built with Clang and booted by GRUB through Multiboot2.
+
+toc::[]
+
+== Requirements
+
+* *GNU make* (the `Makefile` uses GNU-only features)
+* *Clang* and *lld* (`ld.lld`)
+* *NASM*
+* *GRUB 2* tools (`grub-mkrescue` and `grub-file`), *xorriso* and *mtools*
+* *QEMU* (`qemu-system-x86_64`)
+
+=== Debian, Ubuntu, Linux Mint
+
+[source,bash]
+----
+sudo apt update
+sudo apt install -y clang lld nasm grub-pc-bin xorriso mtools qemu-system-x86
+----
+
+=== FreeBSD
+
+NOTE: FreeBSD has not been tested yet, so treat this section as a starting point.
+
+FreeBSD's default `make` is not GNU make. Install `gmake` and run `gmake` wherever this guide says `make`.
+
+[source,sh]
+----
+pkg install gmake nasm xorriso mtools qemu
+pkg search grub2
+----
+
+Pick a GRUB 2 package from the search results that provides `grub-mkrescue`. Clang and lld are part of the base system on recent FreeBSD releases; if `ld.lld` is missing, install the `llvm` package.
+
+== Make targets
+
+[cols="1,4", options="header"]
+|===
+| Target | What it does
+
+| `make`
+| Builds `kernel.elf`.
+
+| `make iso`
+| Builds the kernel, copies it into the `iso/` folder with `grub.cfg`, and creates `mykernel.iso`.
+
+| `make run`
+| Builds the ISO and boots it in QEMU. The kernel prints to the QEMU window and to your terminal (serial port).
+
+| `make debug`
+| Same as `run`, but QEMU starts paused and waits for GDB on port 1234.
+
+| `make check`
+| Confirms that GRUB will accept `kernel.elf` as a valid Multiboot2 image.
+
+| `make clean`
+| Removes object files, `kernel.elf`, the `iso/` folder and `mykernel.iso`.
+|===
+
+== Build and run
+
+[source,bash]
+----
+make clean run
+----
+
+If everything works, QEMU shows (and your terminal prints) something like this:
+
+----
+Hello from my 64-bit kernel!
+
+Multiboot2 magic: 0x0000000036D76289  (ok)
+Multiboot2 info:  0x000000000010CAA0
+IDT loaded: CPU exceptions are now handled.
+----
+
+The `info` address can differ between builds. To quit, close the QEMU window or press `Ctrl+C` in the terminal.
+
+== Testing CPU exceptions
+
+The `TEST` variable builds the kernel so that it triggers one CPU exception on purpose. The kernel should print the exception and halt, instead of rebooting from a triple fault.
+
+[source,bash]
+----
+make clean run TEST=UD
+----
+
+NOTE: Always run `make clean` first. Changing `TEST` changes the compiler flags, but `make` does not notice that on its own and would reuse the old object files.
+
+[cols="2,2,3", options="header"]
+|===
+| Command | What it does | What you should see
+
+| `make clean run TEST=DIV`
+| Divides by zero.
+| Vector 0, Divide Error (#DE). No error code.
+
+| `make clean run TEST=UD`
+| Executes an invalid instruction.
+| Vector 6, Invalid Opcode (#UD). No error code.
+
+| `make clean run TEST=PF`
+| Writes to an address that is not mapped.
+| Vector 14, Page Fault (#PF). Error code `0x2`, faulting address (CR2) `0x80000000`.
+|===
+
+Each test also prints RIP, CS, RFLAGS, RSP and SS, followed by `System halted.`
+
+== Debugging with GDB
+
+Start QEMU paused in one terminal:
+
+[source,bash]
+----
+make debug
+----
+
+Then connect GDB from a second terminal:
+
+[source,bash]
+----
+gdb kernel.elf -ex "target remote :1234"
+----
+
+== Checking the Multiboot2 header
+
+GRUB only looks for the Multiboot2 header in the first 32 KiB of the kernel file. To confirm that the image is valid:
+
+[source,bash]
+----
+make check
+----
+
+It prints the loadable segments and then `OK: valid Multiboot2 image`. This target needs `grub-file`, which comes with the GRUB tools.
+
+== Boot errors
+
+If the early boot code in `entry.asm` finds a problem, it prints `ERR:` and a letter at the top left of the screen, then halts:
+
+[cols="1,4", options="header"]
+|===
+| Letter | Meaning
+
+| `M`
+| The kernel was not started by a Multiboot2 loader.
+
+| `C`
+| The CPU does not support the `CPUID` instruction.
+
+| `L`
+| The CPU does not support 64-bit long mode.
+|===

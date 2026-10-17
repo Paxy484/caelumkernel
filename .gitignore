@@ -1,0 +1,11 @@
+# Object files (Intermediate build artifacts)
+*.o
+
+# Kernel binaries
+*.elf
+
+# Final bootable disk images
+*.iso
+
+# Temporary directory used by grub-mkrescue
+iso/

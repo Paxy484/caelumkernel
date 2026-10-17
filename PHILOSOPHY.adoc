@@ -1,0 +1,71 @@
+= Caelum: Philosophy
+:toc: macro
+:toclevels: 2
+:sectnums:
+
+Why Caelum exists, what it is trying to be, and what it is deliberately not.
+
+toc::[]
+
+== What it is
+
+Caelum is a small hobby kernel for x86_64, written in C and NASM assembly. It is a Unix-style kernel: simple, readable, and built for the joy of understanding how an operating system works from the first instruction.
+
+It is *not* a clone of Linux or FreeBSD, and it is not meant to replace anything.
+
+== Principles
+
+=== Monolithic: ring 0 for the kernel and drivers, ring 3 for everything else
+
+The kernel and its drivers run together in ring 0, the CPU's most privileged mode, in one address space. Everything else runs in ring 3, unprivileged: the shell, the commands, every ordinary program. Programs reach the kernel only through system calls.
+
+This is the classic Unix design, also used by Linux and the BSDs. It is the simplest design to build and understand, and drivers can call kernel code directly. The price is that a buggy driver can bring down the whole system. We accept that trade-off on purpose. Caelum is therefore different from MINIX (a microkernel) and from Darwin's XNU (a hybrid of Mach and BSD).
+
+=== The Unix philosophy
+
+* Small programs that each do one job well.
+* Programs that work together, for example through pipes.
+* Plain text as a common language.
+* Everything is a file, wherever that makes sense.
+
+This mostly shapes userland and the system call interface (`open`, `read`, `write`, `fork`, `exec`, `pipe`, and so on).
+
+=== The "Chocolate Doom" of Unix
+
+Chocolate Doom keeps the behavior and feel of the original Doom while running on modern machines. Caelum tries to do the same for Unix: keep the spirit and the simplicity of the system Ken Thompson and Dennis Ritchie built, on modern hardware.
+
+It is not a 1:1 copy. In size and ambition it sits between xv6, MIT's small teaching kernel (itself a reimplementation of Sixth Edition Unix).
+
+=== POSIX as a direction
+
+If it can be done, Caelum should become POSIX-compatible. This is a direction, not a promise. POSIX is large, and each system call that follows POSIX behavior is a step toward it.
+
+=== Small on purpose
+
+Feature creep is the main enemy of a hobby project. Caelum grows one small step at a time, and each step should leave the kernel booting and understandable. Stopping at any step is a success, not a failure.
+
+== Where it stands
+
+Working today:
+
+* Boots with GRUB through Multiboot2 and switches from 32-bit protected mode to 64-bit long mode.
+* Prints to the VGA text screen and the serial port.
+* Has an IDT, so CPU exceptions print a message and halt instead of causing a triple fault.
+
+Rough ideas for later steps, with no promises or deadlines: timer and keyboard interrupts, memory management and paging, a ring 3 transition with system calls, processes, a simple filesystem, and a shell.
+
+Not planned for now: networking, graphics, multiple CPUs, and a large collection of drivers.
+
+== Where the ideas come from
+
+Caelum is written from scratch. We study documentation, specifications, books and the history of Unix (for example the xv6 kernel and its book, and the early Unix editions).
+
+*AI assistance:* parts of the code were written with the help of an AI assistant. The author reviews, builds, tests and debugs everything before it is kept.
+
+Caelum is explicitly licensed under the **BSD-3-Clause**
+
+== Honest limits
+
+Caelum is a learning project. It has no security guarantees and is not meant for real use. Expect bugs, and expect things to change.
+
+See link:BUILD.adoc[BUILD.adoc] for how to build and run it.

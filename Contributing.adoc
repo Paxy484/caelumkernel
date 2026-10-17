@@ -1,0 +1,34 @@
+= Caelum
+:toc: macro
+:toclevels: 2
+:sectnums:
+:source-highlighter: rouge
+
+== Introduction
+Any contribution is welcome to Caelum!
+
+== Table of Contents
+toc::[]
+
+== LICENSING
+This project is officially released under the **BSD-3-Clause**. 
+
+By contributing code, bug fixes, or patches here, you agree that your work will be under the same BSD license context.
+
+== Automated and AI-Assisted Code Policy
+
+Contributions developed using Large Language Models (LLMs) or AI coding assistants are fully permitted in Caelum. I follow the pragmatic development (i use AI to make code for Kernel)
+
+=== Tool Neutrality
+AI assistants are treated simply as modern extensions of the development environment—no different than advanced compilers, linters, or text editors. Contributors are not required to label, flag, or log their commits with custom metadata traits (such as forced attribution tags) just for using an automated tool.
+
+=== Absolute Contributor Liability
+While you are free to generate structural paths using AI, you assume full personal liability for the code you commit. An AI cannot sign off on kernel patches or claim authorship copyright. 
+
+Before submitting a patch, you must:
+
+* Review every line of code to ensure it meets freestanding C constraints.
+* Actively test the patch in emulator or virtualizer software (like QEMU).
+* Debug any memory register flags or kernel panics inside `GDB`.
+
+If a submitted patch introduces an avoidable memory leak, an unhandled exception alignment bug, or broken pointer arithmetic, the responsibility lands entirely on the human contributor who submitted it.
