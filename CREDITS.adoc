@@ -1,0 +1,38 @@
+= Caelum: Acknowledgments & Credits
+:toc: macro
+:toclevels: 2
+:sectnums:
+:source-highlighter: rouge
+
+== Introduction
+Building an operating system kernel from scratch requires standing on the shoulders of giants. While Caelum's source code is written from the ground up, the project relies entirely on industry-standard open-source toolchains, boot architectures, and emulation environments to build, verify, and run.
+
+== Table of Contents
+toc::[]
+
+== Core Infrastructure & Bootstrapping
+
+=== GNU GRUB (Grand Unified Bootloader)
+* **Project Role:** Handles the initial Multiboot2 bootstrap handshake, sets up the basic protected mode state, and loads the compiled kernel executable into memory.
+* **Website:** https://www.gnu.org/software/grub/
+
+=== NASM (The Netwide Assembler)
+* **Project Role:** Compiles the low-level, high-performance x86_64 assembly code files (`entry.asm`, `isr.asm`) into standard 64-bit ELF object files.
+* **Website:** https://www.nasm.us/
+
+=== The LLVM Project (Clang & LLD)
+* **Project Role:** `clang` provides the freestanding cross-compilation pipeline (`--target=x86_64-unknown-none-elf`), and `ld.lld` acts as the linker to structure the final kernel binaries according to our custom linker script layout.
+* **Website:** https://llvm.org/
+
+== Emulation & Diagnostics
+
+=== QEMU (Quick Emulator)
+* **Project Role:** Emulates a bare-metal x86_64 computer workspace target seamlessly inside Linux Mint, allowing real-time execution testing of the bootable ISO images.
+* **Website:** https://www.qemu.org/
+
+=== xorriso & mtools
+* **Project Role:** Utilized behind the scenes by `grub-mkrescue` inside our `Makefile` architecture to manipulate filesystems and cleanly master the bootable `iso` images.
+* **Website:** https://www.gnu.org/software/xorriso/ and https://www.gnu.org/software/mtools/
+
+== The Community Toolchain
+Special thanks to the **OSDev Wiki** community and YOU! :D
