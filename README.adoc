@@ -11,22 +11,22 @@ Welcome to Caelum!
 toc::[]
 
 == What is "Caelum"?
-Caelum is Kernel that sits between UNIX v6/v7 and xv6 made with C and NASM! See more detailed in: link:PHILOSOPHY.adoc[PHILOSOPHY]
+Caelum is a kernel that sits between UNIX v6/v7 and xv6 made with C and NASM! Read more details in: link:PHILOSOPHY.adoc[PHILOSOPHY]
 
-=== "Seriously, inst world already fill with Unix-like kernels?"
-Yes, the world already has a lot of Unix-like kernels and i'm not trying saying this is special, it's just hobby kernel i created
+=== "Seriously, isn't world already fill with Unix-like kernels?"
+Yes, the world already has a lot of Unix-like kernels and I'm not trying to say this is special, it's just a hobby kernel I created.
 
 === "Why the name 'Caelum'?"
-It reference and pun for link:https://en.wikipedia.org/wiki/Inferno_(operating_system)[Inferno made by Bell Labs.]
+It is a reference and a pun for link:https://en.wikipedia.org/wiki/Inferno_(operating_system)[Inferno made by Bell Labs.]
 
 [NOTE]
 Caelum means "Sky" or "Heaven" in Latin.
 
 === "Did you use AI?"
-Yes, i used AI to make this but i did not "vibe-code", i tested it, i run though GDB.
+Yes, i used AI to make this but i did not "vibe-code", i tested it, i ran though GDB.
 
 [NOTE]
-Vibecode may have dirffent meaning for some people, but for me, it means "blindly trust AI."
+Vibecode may have different meaning for some people, but for me, it means "blindly trust AI."
 
 === Building
 See the link:BUILD.adoc[BUILD] for building.
@@ -36,7 +36,9 @@ See the link:BUILD.adoc[BUILD] for building.
 See the link:Contributing.adoc[Contributing] for Contributing.
 
 == Legal
-Caelum is licensed under **BSD-3-Clause**, See LICENSE for more infomation.
+Caelum is licensed under **BSD-3-Clause**, See LICENSE for more information.
 
 === "But what about GRUB?"
-While GRUB is GPLv3, This can't be apply due to "link:https://www.gnu.org/licenses/gpl-faq.html#MereAggregation[Mere Aggregation]"
+While GRUB is GPLv3, This can't be applied due to "link:https://www.gnu.org/licenses/gpl-faq.html#MereAggregation[Mere Aggregation]" and Section 6(d) in GPL-3.0.
+
+Please note that I'm not a lawyer and is not guaranteed in any way to be free from errors. 

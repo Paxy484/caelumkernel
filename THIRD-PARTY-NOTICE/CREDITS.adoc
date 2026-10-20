@@ -15,6 +15,8 @@ toc::[]
 === GNU GRUB (Grand Unified Bootloader)
 * **Project Role:** Handles the initial Multiboot2 bootstrap handshake, sets up the basic protected mode state, and loads the compiled kernel executable into memory.
 * **Website:** https://www.gnu.org/software/grub/
+* **SOURCE CODE: https://gitlab.freedesktop.org/gnu-grub/grub**
+* **LICENSE TEXT:** link:GNU-GRUB/COPYING-GNU-GRUB[COPYING-GNU-GRUB]
 
 === NASM (The Netwide Assembler)
 * **Project Role:** Compiles the low-level, high-performance x86_64 assembly code files (`entry.asm`, `isr.asm`) into standard 64-bit ELF object files.
