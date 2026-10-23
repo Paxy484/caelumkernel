@@ -36,9 +36,9 @@ See the link:BUILD.adoc[BUILD] for building.
 See the link:Contributing.adoc[Contributing] for Contributing.
 
 == Legal
-Caelum is licensed under **BSD-3-Clause**, See LICENSE for more information.
+Caelum is licensed under **MIT-0 with BSD Warranty License**, See link:LICENSE[LICENSE] for more information.
 
 === "But what about GRUB?"
-While GRUB is GPLv3, This can't be applied due to "link:https://www.gnu.org/licenses/gpl-faq.html#MereAggregation[Mere Aggregation]" and Section 6(d) in GPL-3.0.
+While GRUB is GPLv3, This can't be applied due to "link:https://www.gnu.org/licenses/gpl-faq.en.html#MereAggregation[Mere Aggregation]" and Section 6(d) in GPL-3.0.
 
 Please note that I'm not a lawyer and is not guaranteed in any way to be free from errors. 

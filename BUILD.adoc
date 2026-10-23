@@ -75,8 +75,9 @@ If everything works, QEMU shows (and your terminal prints) something like this:
 ----
 Hello from my 64-bit kernel!
 
-Multiboot2 magic: 0x0000000036D76289  (ok)
-Multiboot2 info:  0x000000000010CAA0
+Multiboot2 magic: 0x0000000036D76289 (ok)
+Multiboot2 info:  0x000000000010E910
+GDT and TSS loaded: CS=0x0000000000000008 SS=0x0000000000000010 TR=0x0000000000000028
 IDT loaded: CPU exceptions are now handled.
 ----
 

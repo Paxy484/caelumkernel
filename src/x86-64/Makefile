@@ -8,7 +8,7 @@ CFLAGS  := --target=x86_64-unknown-none-elf -std=c11 -g -Wall -Wextra \
            -mno-red-zone -mgeneral-regs-only
 LDFLAGS := -T linker.ld -nostdlib -z max-page-size=0x1000
 
-OBJS    := entry.o isr.o idt.o kernel.o
+OBJS    := entry.o isr.o idt.o gdt.o kernel.o
 
 # Deliberately trigger an exception to test the IDT (rebuild with clean):
 #   make clean run TEST=DIV     divide by zero        (vector 0)
@@ -25,7 +25,7 @@ all: kernel.elf
 %.o: %.asm
 	$(ASM) -f elf64 $< -o $@
 
-%.o: %.c idt.h
+%.o: %.c idt.h gdt.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 kernel.elf: $(OBJS) linker.ld

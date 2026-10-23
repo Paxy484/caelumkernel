@@ -11,9 +11,9 @@ Any contribution is welcome to Caelum!
 toc::[]
 
 == LICENSING
-This project is officially released under the **BSD-3-Clause**. 
+This project is officially released under the **MIT-0 with BSD Warranty License**. 
 
-By contributing code, bug fixes, or patches here, you agree that your work will be under the same BSD license context.
+By contributing code, bug fixes, or patches here, you agree that your work will be under the same license context.
 
 == Automated and AI-Assisted Code Policy
 

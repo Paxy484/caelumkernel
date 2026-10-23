@@ -51,6 +51,7 @@ Working today:
 * Boots with GRUB through Multiboot2 and switches from 32-bit protected mode to 64-bit long mode.
 * Prints to the VGA text screen and the serial port.
 * Has an IDT, so CPU exceptions print a message and halt instead of causing a triple fault.
+* Has GDT and TSS but no Ring 3 fully yet.
 
 Rough ideas for later steps, with no promises or deadlines: timer and keyboard interrupts, memory management and paging, a ring 3 transition with system calls, processes, a simple filesystem, and a shell.
 
@@ -62,7 +63,7 @@ Caelum is written from scratch. We study documentation, specifications, books an
 
 *AI assistance:* parts of the code were written with the help of an AI assistant. The author reviews, builds, tests and debugs everything before it is kept.
 
-Caelum is explicitly licensed under the **BSD-3-Clause**
+Caelum is explicitly licensed under the **MIT-0 with BSD Warranty License**
 
 == Honest limits
 
